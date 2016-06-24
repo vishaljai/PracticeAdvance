@@ -1,0 +1,52 @@
+package com.Assignments;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class AddToCart {
+
+	static WebDriver driver;
+	String[] params;
+	double[] price;
+
+	@Test
+	public void TestNOPCommerce() {
+		driver = new FirefoxDriver();
+		driver.get("http://demo.nopcommerce.com/");
+		driver.manage().window().maximize();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(driver.findElement(By.xpath("html/body/div[5]/div[2]/ul[1]/li[2]/a")))
+				.click(driver.findElement(By.xpath("html/body/div[5]/div[2]/ul[1]/li[2]/ul/li[2]/a"))).build()
+				.perform();
+		//driver.findElement(By.xpath("html/body/div[5]/div[3]/div[2]/div[2]/div/div[2]/div[1]/div[1]/a[1]")).click();
+
+		List<WebElement> priceList = driver.findElements(By.className("prices"));
+		Iterator<WebElement> iterate_priceList = priceList.iterator();
+		Iterator<WebElement> iterate_priceList2 = priceList.iterator();
+
+		int i = 0;
+		
+		// Printing values
+		while (iterate_priceList.hasNext()) {
+			System.out.println(((iterate_priceList.next()).getText()).replace("$", ""));
+		}
+		
+		// Null Pointer Exception
+		while (iterate_priceList2.hasNext()) {
+			params[i] = (((iterate_priceList2.next()).getText()).replace("$", ""));
+			//price[i] = Double.parseDouble(params[i]);
+			i++;
+		}
+		
+		for(double dr : price)
+			System.out.println(dr);
+
+	}
+}
